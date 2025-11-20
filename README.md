@@ -100,7 +100,7 @@ df = pd.read_csv("your_file.csv")
 
 Run the following command in your terminal:
 ```bash
-python model.py
+python train.py
 ```
 
 All results are presented without exposing any sensitive data.
