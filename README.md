@@ -48,13 +48,11 @@ Only modeling methods and results are documented.
 Shows rapid probability decline for wells predicted to fail earliest.  
 **File:** `top10_high_risk_survival.png`
 
----
 
 ### **Survival Curves — Lowest-Risk Wells**
 Low-risk wells maintain high survival probability over time.  
 **File:** `bottom10_low_risk_survival.png`
 
----
 
 ### **Feature Importance (Hazard Ratios)**
 Two plots summarize the strongest predictors:
@@ -64,7 +62,6 @@ Two plots summarize the strongest predictors:
 - **Protective features:**  
   `top10_lowest_coefficients.png`
 
----
 
 ### **Kaplan–Meier Risk Group Validation**
 Wells are split into *High Risk* vs *Low Risk* based on model output.
