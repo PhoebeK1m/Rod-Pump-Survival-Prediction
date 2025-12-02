@@ -5,7 +5,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.impute import KNNImputer
 
 # ---------------------------------- Load Data -----------------------------------------------------
-file_path = "/Users/phoebekim/Downloads/nsc data/training_data/prev/correct_types_rodpump.csv"
+file_path = "/postFS_df.csv"
 df = pd.read_csv(file_path)
 
 target_col = "FAILED"
@@ -29,6 +29,10 @@ for col in categorical_cols:
 
 print("Basic imputation complete.")
 print(df_basic.isna().sum().sum(), "missing values remaining.")
+# Save basic
+df_basic.to_csv("control.csv", index=False)  # median + mode
+print("\nFiles saved:")
+print(" - control.csv")
 
 # ---------------------------------- KNN Imputation for Numeric Columns ----------------------------
 knn_imputer = KNNImputer(n_neighbors=5)
@@ -54,57 +58,53 @@ for col in categorical_cols:
 print("KNN imputation complete.")
 print(df_knn.isna().sum().sum(), "missing values remaining.")
 
-# Save basic
-df_basic.to_csv("control.csv", index=False)  # median + mode
-print("\nFiles saved:")
-print(" - control.csv (basic imputation)")
 
 # ---------------------------------- Encode Categorical Columns ----------------------------------
-encoder = OrdinalEncoder()
-X_full = df_knn[categorical_cols + numeric_cols].copy()
+# encoder = OrdinalEncoder()
+# X_full = df_knn[categorical_cols + numeric_cols].copy()
 
-# Ensure categorical data is string type before encoding
-X_full[categorical_cols] = encoder.fit_transform(X_full[categorical_cols].astype(str))
+# # Ensure categorical data is string type before encoding
+# X_full[categorical_cols] = encoder.fit_transform(X_full[categorical_cols].astype(str))
 
-# Columns selected for predictive imputation
-columns_to_impute = [
-    "bha_configuration",
-    "packer_vs_tac",
-    "wellbore_category",
-    "rod_apigrade"
-]
+# # Columns selected for predictive imputation
+# columns_to_impute = [
+#     "bha_configuration",
+#     "packer_vs_tac",
+#     "wellbore_category",
+#     "rod_apigrade"
+# ]
 
-# ---------------------------------- Predictive Imputation ---------------------------------------
-for col in columns_to_impute:
-    missing_mask = df_knn[col].isna()
+# # ---------------------------------- Predictive Imputation ---------------------------------------
+# for col in columns_to_impute:
+#     missing_mask = df_knn[col].isna()
 
-    # Skip if no missing values
-    if missing_mask.sum() == 0:
-        print(f"'{col}' has no missing values — skipping.")
-        continue
+#     # Skip if no missing values
+#     if missing_mask.sum() == 0:
+#         print(f"'{col}' has no missing values — skipping.")
+#         continue
 
-    print(f"Predicting missing values for '{col}'...")
+#     print(f"Predicting missing values for '{col}'...")
 
-    # Prepare training and prediction datasets
-    train_df = X_full.loc[~missing_mask]
-    test_df = X_full.loc[missing_mask]
-    y_train = df_knn.loc[~missing_mask, col]
+#     # Prepare training and prediction datasets
+#     train_df = X_full.loc[~missing_mask]
+#     test_df = X_full.loc[missing_mask]
+#     y_train = df_knn.loc[~missing_mask, col]
 
-    # Train classifier
-    rf = RandomForestClassifier(n_estimators=100, random_state=42)
-    rf.fit(train_df.fillna(0), y_train)
+#     # Train classifier
+#     rf = RandomForestClassifier(n_estimators=100, random_state=42)
+#     rf.fit(train_df.fillna(0), y_train)
 
-    # Predict missing values
-    preds = rf.predict(test_df.fillna(0))
-    df_knn.loc[missing_mask, col] = preds
-    print(f"Filled {len(preds)} missing values in '{col}'.")
+#     # Predict missing values
+#     preds = rf.predict(test_df.fillna(0))
+#     df_knn.loc[missing_mask, col] = preds
+#     print(f"Filled {len(preds)} missing values in '{col}'.")
 
-# ---------------------------------- Report Remaining Missing Values ------------------------------
-missing_after = df_knn.isna().sum()
-print("\nMissing values after imputation:")
-print(missing_after[missing_after > 0].sort_values(ascending=False))
+# # ---------------------------------- Report Remaining Missing Values ------------------------------
+# missing_after = df_knn.isna().sum()
+# print("\nMissing values after imputation:")
+# print(missing_after[missing_after > 0].sort_values(ascending=False))
 
 # ---------------------------------- Save Outputs --------------------------------------------------
-df_knn.to_csv("knn_rf.csv", index=False)
+df_knn.to_csv("knn.csv", index=False)
 print("\nFiles saved:")
-print(" - knn_rf.csv (KNN + RF imputation)")
+print(" - knn.csv")

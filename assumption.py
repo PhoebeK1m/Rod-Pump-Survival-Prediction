@@ -56,7 +56,7 @@ def plot_martingale_residuals(cph, train_df, duration_col, event_col, out_prefix
 
 
 # ---------------------------------- Main Workflow --------------------------------------------------
-data_dir = "/Users/phoebekim/Downloads/nsc data/training_data"
+data_dir = "/training data"
 csv_files = [f for f in os.listdir(data_dir) if f.endswith(".csv")]
 
 os.makedirs("martingale", exist_ok=True)

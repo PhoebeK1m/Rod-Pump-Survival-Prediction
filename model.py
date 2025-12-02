@@ -8,16 +8,16 @@ from sklearn.preprocessing import StandardScaler
 from lifelines import KaplanMeierFitter
 
 # ---------------------------------- Load Data -----------------------------------------------------
-# df = pd.read_csv("/Users/phoebekim/Downloads/nsc data/control.csv")
+df = pd.read_csv("/training data/knn.csv") # change to control if needed
 
 # ---------------------------------- Drop Unused Columns -------------------------------------------
 drop_cols = ["FAILURETYPE", "UWI", "tbguid", "lifetime_start"]
 df = df.drop(columns=[c for c in drop_cols if c in df.columns])
 
 # ---------------------------------- Encode Categoricals -------------------------------------------
-selected_cats = ["bha_configuration", "rod_sinker_type", "rod_apigrade", "ROUTE"]
+selected_cats = ["bha_configuration", "ROUTE"]
 for col in selected_cats:
-    df[col] = df[col].astype(str)
+        df[col] = df[col].astype(str)
 
 df = pd.get_dummies(df, columns=selected_cats, drop_first=True)
 
@@ -79,7 +79,7 @@ cox_lasso.fit(
     df,
     duration_col="lifetime_duration_days",
     event_col="FAILED",
-    weights_col="sample_weight",
+    # weights_col="sample_weight",
     formula=full_formula,
     robust=True
 )
@@ -126,12 +126,15 @@ final_mod.fit(
     df,
     duration_col="lifetime_duration_days",
     event_col="FAILED",
-    weights_col="sample_weight",
+    # weights_col="sample_weight",
     formula=final_formula,
     robust=True
 )
 
 # ---------------------------------- Compute Risk Scores ---------------------------------------------
+c_index = final_mod.concordance_index_
+print("Concordance Index (C-index):", c_index)
+
 df["risk_score"] = final_mod.predict_partial_hazard(df)
 
 df_sorted = df.sort_values("risk_score", ascending=False)

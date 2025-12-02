@@ -46,40 +46,38 @@ Only modeling methods and results are documented.
 
 ### **Survival Curves — Highest-Risk Wells**
 Shows rapid probability decline for wells predicted to fail earliest.  
-**File:** `top10_high_risk_survival.png`
+**File:** `knn/top10_high_risk_survival.png`
 
 
 ### **Survival Curves — Lowest-Risk Wells**
 Low-risk wells maintain high survival probability over time.  
-**File:** `bottom10_low_risk_survival.png`
+**File:** `knn/bottom10_low_risk_survival.png`
 
 
 ### **Feature Importance (Hazard Ratios)**
 Two plots summarize the strongest predictors:
 
 - **Risk-increasing features:**  
-  `top10_highest_coefficients.png`
+  `knn/top10_highest_coefficients.png`
 - **Protective features:**  
-  `top10_lowest_coefficients.png`
+  `knn/top10_lowest_coefficients.png`
 
 
 ### **Kaplan–Meier Risk Group Validation**
 Wells are split into *High Risk* vs *Low Risk* based on model output.
 
-**File:** `Kaplan–Meier_Curves_High_vs_Low_Risk.png`  
+**File:** `knn/Kaplan–Meier_Curves_High_vs_Low_Risk.png`  
 
 Clear separation = strong model discrimination.
 
 ---
 
 ### **Output Risk Score File**
-`cox_failure_risk_scores.csv` contains:
+`knn/cox_failure_risk_scores.csv` contains:
 
 - Model-generated risk score  
 - Assigned risk group  
 - Processed feature columns  
-
-*(No raw proprietary data.)*
 
 ---
 
@@ -100,7 +98,7 @@ df = pd.read_csv("your_file.csv")
 
 Run the following command in your terminal:
 ```bash
-python train.py
+python model.py
 ```
 
 All results are presented without exposing any sensitive data.
