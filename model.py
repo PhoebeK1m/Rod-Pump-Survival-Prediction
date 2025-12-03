@@ -133,7 +133,19 @@ final_mod.fit(
 
 # ---------------------------------- Compute Risk Scores ---------------------------------------------
 c_index = final_mod.concordance_index_
+partial_aic = final_mod.AIC_partial_
+
+llr = final_mod.log_likelihood_ratio_test()
+llr_stat = llr.test_statistic
+llr_df = llr.degrees_freedom
+llr_p = llr.p_value
+
+neg_log2_p = -np.log2(llr_p)
+
 print("Concordance Index (C-index):", c_index)
+print(f"Partial AIC = {partial_aic:.2f}")
+print(f"log-likelihood ratio test = {llr_stat:.2f} on {llr_df} df")
+print(f"-log2(p) of ll-ratio test = {neg_log2_p:.2f}")
 
 df["risk_score"] = final_mod.predict_partial_hazard(df)
 
