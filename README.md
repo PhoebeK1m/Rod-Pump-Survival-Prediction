@@ -1,6 +1,6 @@
 # Rod-Pump Survival Prediction  
 **Presentation:**  
-[▶ Click here to view the slide deck](https://onedrive.live.com/personal/08b740479a175a64/_layouts/15/Doc.aspx?sourcedoc=%7B6fddb6ed-46da-48c3-8d1b-a9dfdcd8439e%7D&action=default)
+[▶ Click here to view the slide deck](https://drive.google.com/file/d/1XyurWkkKDK5BtjH9nwyK_c0SqHyzXWfO/view?usp=sharing)
 
 ---
 
