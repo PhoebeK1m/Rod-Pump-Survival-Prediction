@@ -1,9 +1,7 @@
 # Rod-Pump Survival Prediction  
-**Presentation:**  
-[▶ Click here to view the slide deck](https://drive.google.com/file/d/1XyurWkkKDK5BtjH9nwyK_c0SqHyzXWfO/view?usp=sharing)
+**Presentation:** [▶ Click here to view the slide deck](https://drive.google.com/file/d/1XyurWkkKDK5BtjH9nwyK_c0SqHyzXWfO/view?usp=sharing)
 
-**Project Drive (includes data analysis, XGBoost Notebooks):**
-[▶ Click here to see drive](https://drive.google.com/drive/folders/10IQlk29cO6UzIgEQhSDWY9ldrStQG8iZ?usp=sharing)
+**Project Drive (includes data analysis, XGBoost Notebooks):** [▶ Click here to see drive](https://drive.google.com/drive/folders/10IQlk29cO6UzIgEQhSDWY9ldrStQG8iZ?usp=sharing)
 
 ---
 
